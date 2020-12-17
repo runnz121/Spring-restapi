@@ -1,0 +1,8 @@
+server:
+  port: 8088
+
+#logging:
+ # level:
+  #  org.springframework: DEBUG #로그를 위한 설정 : org.springframework 패키지가 들어간 것을 로그남김
+
+
