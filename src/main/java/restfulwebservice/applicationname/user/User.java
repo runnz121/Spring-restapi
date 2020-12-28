@@ -9,8 +9,9 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Data
-@AllArgsConstructor
+@AllArgsConstructor//생성자 생성
 public class User {
+
     private Integer id;
 
     @Size(min=2, message = "2글자 이상 입력해주세요") //지정값보다 무조건 커야되는 검증용 빈

@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
-@Service //어떠한 것으로 사용될건지 지정해줘야 의존성 주입시 사용 가능
+@Service //어떠한 것으로 사용될건지 지정해줘야 의존성 주입시 사용 가능 -> 여기서는 서비스로 사용함 지정안하면 usercontroller에서 인식 못함
 public class UserDaoService {//user에 대한 비즈니스 로직
     private static List<User> users = new ArrayList<>();//메모리에 유저 정보 저장
 
@@ -16,7 +16,7 @@ public class UserDaoService {//user에 대한 비즈니스 로직
 
 
     static { //위의 static으로 선언된 users 변수에 넣는거라 static 블럭으로 생성해도 됨
-        users.add(new User(1,"Kenneth",new Date()));
+        users.add(new User(1,"Kenneth",new Date())); //new 연산자를 써줌으로서 메모리에 저장공간 할당
         users.add(new User(2,"Alice",new Date()));
         users.add(new User(3,"Elena",new Date()));
     }
@@ -32,19 +32,19 @@ public class UserDaoService {//user에 대한 비즈니스 로직
             user.setId(++usersCount);//전에 id가 없으면 하나 추가가
        }
         users.add(user);
-        return user;
+        return user;//save된 id 가 있는 user를 반환
     }
 
 
 
-    public User findOne(int id){ //id값을 매개 변수로 받아서 이를 조회해서 반환
+    public User findOne(int id){ //id값을 매개 변수로 받아서 이를 조회해서 user로반환
         for (User user : users){
             if(user.getId()==id) { //getId는 롬복으로 호출
                 return user;
             }
         }
 
-        return null;
+        return null; //없으면 null
     }
 
 
