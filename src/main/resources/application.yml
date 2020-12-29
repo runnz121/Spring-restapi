@@ -1,8 +1,34 @@
 server:
   port: 8088
 
-#logging:
- # level:
-  #  org.springframework: DEBUG #·Î±×¸¦ À§ÇÑ ¼³Á¤ : org.springframework ÆĞÅ°Áö°¡ µé¾î°£ °ÍÀ» ·Î±×³²±è
+logging:
+  level:
+   org.springframework: DEBUG #config for log :  leave log the package inclue:org.springframework
+
+spring:
+  jpa:
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+
+  messages:
+    basename: messages # to apply mulit-anguage
+
+
+
+  #spring security ì ‘ì†ì‹œ ì•„ì´ë””ë¹„ë²ˆì„ ì§ì ‘ ì§€ì •
+  #security:
+    #user:
+     #name: username
+      #password: 123
+
+#actuator í¬ë©§ ìˆ˜ì •
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 
 

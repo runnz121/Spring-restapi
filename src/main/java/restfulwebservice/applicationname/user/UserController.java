@@ -1,6 +1,8 @@
 package restfulwebservice.applicationname.user;
 
 
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -8,6 +10,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 public class UserController {
@@ -30,7 +35,7 @@ public class UserController {
 
     //지정사용자 정보 반환 //pathvariable 사용 서버는 String으로 자동변환되어 전달됨
     @GetMapping("/users/{id}")//GET /users/1 or /users/2 ..... -> 서버에는 String으로 전달됨
-    public User retrieveUser(@PathVariable int id){//매개변수 받는 pathvariable
+    public Resource<User> retrieveUser(@PathVariable int id){//매개변수 받는 pathvariable
         User user = service.findOne(id);
 
         //예외처리
@@ -38,8 +43,19 @@ public class UserController {
             throw new UserNotFoundException(String.format("ID[%s] not found", id));//UserNotFoundException 클래스이름
         }
 
+        //HATEOAS관련 코드 추가
+        Resource<User> resource = new Resource<>(user);
+       // ControllerLinkBuilder linkTo = ControllerLinkBuilder.linkTo( //어떠한 링크를 추가할 것인지 선택
+       //         ControllerLinkBuilder.methodOn(this.getClass()).retrieveAllUsers()); //이 class 의 .retrieveAllUsers() 매소드를 링크 건다
 
-        return user; //전달받은 id값이 findone에 전달된다 그리고 그 전달받은 findeone에서 해당 id를 찾아서 다시 반환
+        //위의 코드를 static import으로 처리해서 리펙토링(linkto, methodon)
+        ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers());
+
+        resource.add(linkTo.withRel("all-users"));
+
+
+
+        return resource;
 
     }
 
@@ -66,11 +82,9 @@ public class UserController {
     public void deleteUser(@PathVariable int id ) {
         User user = service.deleteById(id);
 
-        if (user == null) {
+        if (user == null) {//삭제된 데이터가 없는 경우
 
             throw new UserNotFoundException(String.format("ID[%s] not found", id));
         }
-
-
     }
 }

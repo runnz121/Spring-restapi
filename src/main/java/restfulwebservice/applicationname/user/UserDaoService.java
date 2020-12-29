@@ -16,9 +16,9 @@ public class UserDaoService {//user에 대한 비즈니스 로직
 
 
     static { //위의 static으로 선언된 users 변수에 넣는거라 static 블럭으로 생성해도 됨
-        users.add(new User(1,"Kenneth",new Date())); //new 연산자를 써줌으로서 메모리에 저장공간 할당
-        users.add(new User(2,"Alice",new Date()));
-        users.add(new User(3,"Elena",new Date()));
+        users.add(new User(1,"Kenneth",new Date(),"pass1","701010-11111111")); //new 연산자를 써줌으로서 메모리에 저장공간 할당
+        users.add(new User(2,"Alice",new Date(),"pass2","801010-11111111"));
+        users.add(new User(3,"Elena",new Date(),"pass3","901010-11111111"));
     }
 
     public List<User> findAll(){
@@ -38,7 +38,7 @@ public class UserDaoService {//user에 대한 비즈니스 로직
 
 
     public User findOne(int id){ //id값을 매개 변수로 받아서 이를 조회해서 user로반환
-        for (User user : users){
+        for (User user : users){ //foreach 사용
             if(user.getId()==id) { //getId는 롬복으로 호출
                 return user;
             }
@@ -51,14 +51,14 @@ public class UserDaoService {//user에 대한 비즈니스 로직
 
     //유저 삭제
     public User deleteById(int id){
-        Iterator<User> iterator = users.iterator();//열거형 타입으로 변환
+        Iterator<User> iterator = users.iterator();//열거형 타입으로 변환(리스트나 배열에 순차적으로 접근)
 
-        while (iterator.hasNext()) {
+        while (iterator.hasNext()) { //반복문으로 순차적으로 갖고옴
             User user = iterator.next();
 
-            if (user.getId()== id){
-                iterator.remove(); //이미 있는 아이디면 삭제
-                return user; //삭제된 아이디 반환
+            if (user.getId()== id){ //이미 있는 아이디면
+                iterator.remove(); //데이터 삭제
+                return user; //삭제한 아이디 반환
             }
         }
 
