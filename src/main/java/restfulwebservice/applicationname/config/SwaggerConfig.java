@@ -16,7 +16,7 @@ import java.util.Set;
 
 @Configuration//환경설정용이라는 정의
 @EnableSwagger2//swagger로서 사용할거라는 것
-public class SwaggerConfig {
+public class SwaggerConfig { //swagger에 나타낼 정보를 추가함(보통 고정적인 정보를 변수로 선언한다)
     private static final Contact DEFAULT_CONTACT = new Contact("Kenneth Lee", "http://www.joneconsultin.gco.kr",
                                                                 "edwon@joneonsulting.co.kr");
 
@@ -28,7 +28,7 @@ public class SwaggerConfig {
     @Bean
     public Docket api(){ //Docket은 documentation 형태로 바환
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(DEFAULT_API_INFO)
+                .apiInfo(DEFAULT_API_INFO) //apiInfo : 제목 설명 문서에 대한 정보
                 .produces(DEFAULT_PRODUCES_AND_CONSUMES)
                 .consumes(DEFAULT_PRODUCES_AND_CONSUMES);
 

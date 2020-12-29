@@ -28,7 +28,7 @@ public class HelloWorldController {
 
     }
 
-    //클래스에 값을 받아 반환, 자바 bena형태 https://elfinlas.github.io/2017/10/31/javabean/
+    //클래스에 값을 받아 반환, 자바 bean형태 https://elfinlas.github.io/2017/10/31/javabean/
     @GetMapping(path = "/hello-world-bean")
     public HelloWorldBean helloWorldBean() { //HelloWorldBean으로 값을 반환
         return new HelloWorldBean("Hello world"); //HelloWorldBean 클래스를 통해서 반환(자바 bean 형태)-> json 형태로 반환 받음
